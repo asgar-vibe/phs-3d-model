@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Panyarat High School - 3D Interactive Campus Map</title>
+  
+  <!-- Modern Thai & English Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- Three.js Canvas Container -->
+  <div id="canvas-container"></div>
+  
+  <!-- CSS2D Labels Container -->
+  <div id="labels-container"></div>
+
+  <!-- UI Overlay -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-badge">
+        <img src="/logo.png" alt="Panyarat High School Logo" class="logo-img" />
+      </div>
+      <div class="header-titles">
+        <h1 class="main-title">Panyarat High School</h1>
+        <p class="subtitle">Bilingual Math &amp; Science Campus • 3D Interactive Model</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Controls Toolbar -->
+  <div class="controls-toolbar" role="toolbar" aria-label="Camera and atmosphere controls">
+    <div class="toolbar-group">
+      <span class="group-label">Camera</span>
+      <button id="btn-view-iso" class="tool-btn active" title="Isometric 3D View">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>Isometric</span>
+      </button>
+      <button id="btn-view-front" class="tool-btn" title="View from Soi Silom 18 (East Entrance)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>Silom Soi 18</span>
+      </button>
+      <button id="btn-view-top" class="tool-btn" title="Top-down bird's eye view">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Top View</span>
+      </button>
+      <button id="btn-view-reset" class="tool-btn" title="Reset Camera View">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>Reset</span>
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <span class="group-label">Display</span>
+      <button id="btn-toggle-labels" class="tool-btn active" title="Toggle Building Labels">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        <span>Labels</span>
+      </button>
+      <button id="btn-toggle-grid" class="tool-btn active" title="Toggle Metric Grid (5m)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        <span>Grid (m)</span>
+      </button>
+      <button id="btn-toggle-rotate" class="tool-btn" title="Auto-Rotate Camera">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        <span>Auto-Rotate</span>
+      </button>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-group">
+      <span class="group-label">Atmosphere & Light</span>
+      <button id="btn-time-day" class="tool-btn active" title="Day: Bright clear sky & overhead sunlight (12:00)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+        <span>Day</span>
+      </button>
+      <button id="btn-time-sunrise" class="tool-btn" title="Sunrise: Morning golden rays from the East / Soi 18 (06:30)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 10v4M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m10 0h4M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg>
+        <span>Sunrise</span>
+      </button>
+      <button id="btn-time-sunset" class="tool-btn" title="Sunset: Warm crimson dusk from the West / Gym (18:15)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 18a5 5 0 0 0-10 0M12 9V2M4.22 10.22l1.42 1.42m12.72-1.42l1.42 1.42M1 18h22M1 22h22"/></svg>
+        <span>Sunset</span>
+      </button>
+      <button id="btn-time-night" class="tool-btn" title="Night: Moonlit starry sky & architectural illumination (22:00)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Night</span>
+      </button>
+      <button id="btn-time-cycle" class="tool-btn" title="Continuous 24-Hour Day/Night auto-cycle">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Auto Cycle</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Building Quick Selector Drawer (Bottom on mobile, side on desktop) -->
+  <aside class="building-drawer" id="building-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-row">
+        <h3>Campus Zones & Buildings</h3>
+        <span class="badge-count" id="building-count">9 Zones</span>
+      </div>
+      <p class="drawer-desc">Click any building to inspect details and zoom</p>
+    </div>
+
+    <div class="building-list" id="building-list">
+      <!-- Generated dynamically in JS -->
+    </div>
+
+    <div class="drawer-footer">
+      <div class="compass-indicator">
+        <span class="compass-n">N</span>
+        <span class="compass-label">Top = North • Right = Soi Silom 18</span>
+      </div>
+      <div class="legend-note">1 Grid Unit = 5 Meters</div>
+    </div>
+  </aside>
+
+  <!-- Building Detail Popup Modal (when clicked) -->
+  <div class="detail-modal" id="detail-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      <div class="modal-badge" id="modal-type-badge">Academic Wing</div>
+      <h2 class="modal-title" id="modal-title">Building Name</h2>
+      <p class="modal-en-title" id="modal-en-title">Category</p>
+      
+      <div class="modal-dims">
+        <div class="dim-item">
+          <span class="dim-label">Footprint (W × D)</span>
+          <span class="dim-value" id="modal-dim-size">70 × 11 m</span>
+        </div>
+        <div class="dim-item">
+          <span class="dim-label">Height</span>
+          <span class="dim-value" id="modal-dim-height">11.4 m (3 Floors)</span>
+        </div>
+        <div class="dim-item">
+          <span class="dim-label">Coordinates (X, Z)</span>
+          <span class="dim-value" id="modal-dim-pos">(0, -30)</span>
+        </div>
+      </div>
+
+      <div class="modal-description" id="modal-description">
+        Building description and functions...
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-focus" id="modal-focus-btn">Focus View</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions Helper overlay for desktop / mobile touch -->
+  <div class="interaction-hint" id="interaction-hint">
+    <div class="hint-icon">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+    </div>
+    <div class="hint-text">
+      <span class="desktop-hint">🖱️ <strong>Left Click + Drag</strong>: Rotate • <strong>Right Click + Drag</strong>: Pan • <strong>Scroll</strong>: Zoom</span>
+      <span class="mobile-hint">👆 <strong>1 Finger</strong>: Rotate • <strong>2 Fingers</strong>: Pan / Zoom</span>
+    </div>
+    <button class="hint-close" id="hint-close-btn" aria-label="Close">✕</button>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
