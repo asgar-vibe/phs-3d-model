@@ -17,9 +17,9 @@ const ACADEMIC_FLOORS = 3;
 const CAMPUS_DATA = [
   {
     id: 'north_wing',
-    nameTh: 'อาคารทิศเหนือ (ชั้น G: โรงอาหาร Canteen)',
-    nameEn: 'North Wing (Ground Floor: Canteen)',
-    typeEn: '3-Story Academic Wing (Canteen on G)',
+    nameTh: 'อาคารทิศเหนือ',
+    nameEn: 'North Wing',
+    typeEn: '3-story building',
     badge: '01',
     badgeColor: '#2563eb',
     width: 70.0,
@@ -32,13 +32,13 @@ const CAMPUS_DATA = [
     color: 0xffffff,
     edgeColor: 0x2563eb,
     isNorthWing: true,
-    descEn: 'North academic building spanning 70m connecting the Gymnasium and East Wing. Ground floor accommodates the school Canteen, with classrooms and science laboratories on upper levels.'
+    descEn: 'A three-story school building with a cafeteria on the ground floor.'
   },
   {
     id: 'east_wing',
-    nameTh: 'อาคารทิศตะวันออก (ริม ซ.สีลม 18)',
-    nameEn: 'East Wing (Silom Soi 18 Facade)',
-    typeEn: '3-Story Academic Wing (Main Entrance)',
+    nameTh: 'อาคารทิศตะวันออก',
+    nameEn: 'East Wing',
+    typeEn: '3-story building',
     badge: '02',
     badgeColor: '#16a34a',
     width: 11.0,
@@ -51,13 +51,13 @@ const CAMPUS_DATA = [
     color: 0xffffff,
     edgeColor: 0x16a34a,
     isEastWing: true,
-    descEn: 'East academic wing fronting Soi Silom 18. Features the ground-floor open gateway for campus vehicle entry and the prominent 3D monument school signage on upper floors.'
+    descEn: 'This wing is located next to the main gate, with a three-story building structure. It also serves as the main building for external inquiries and contact.'
   },
   {
     id: 'south_wing',
-    nameTh: 'อาคารทิศใต้ (ยาวเชื่อมติดหอประชุม)',
-    nameEn: 'South Wing (Connected to Auditorium)',
-    typeEn: '3-Story Academic Wing (South)',
+    nameTh: 'อาคารทิศใต้',
+    nameEn: 'South Wing',
+    typeEn: '3-story building',
     badge: '03',
     badgeColor: '#9333ea',
     width: 52.0,
@@ -69,13 +69,13 @@ const CAMPUS_DATA = [
     y: ACADEMIC_HEIGHT / 2,
     color: 0xffffff,
     edgeColor: 0x9333ea,
-    descEn: 'South academic wing seamlessly connecting the East Wing to the Auditorium on the west, housing high school classrooms and multi-purpose activity rooms.'
+    descEn: 'A three-story building located at the southern end of the school, used for teaching and administrative offices.'
   },
   {
     id: 'west_wing',
-    nameTh: 'อาคารทิศตะวันตก (มีทางลอดไปโรงยิม)',
-    nameEn: 'West Wing (With Gym Underpass)',
-    typeEn: '3-Story Academic Wing (Underpass on 1F)',
+    nameTh: 'อาคารทิศตะวันตก',
+    nameEn: 'West Wing',
+    typeEn: '3-story building',
     badge: '04',
     badgeColor: '#0284c7',
     width: 11.0,
@@ -88,13 +88,13 @@ const CAMPUS_DATA = [
     color: 0xffffff,
     edgeColor: 0x0284c7,
     isWestWing: true,
-    descEn: 'West academic wing featuring a ground-floor underpass providing direct vehicular and pedestrian passage between the courtyard and the Gymnasium entrance.'
+    descEn: 'A three-story building located on the western side of the campus. It features an underpass on the ground floor connecting the main courtyard to the gymnasium area.'
   },
   {
     id: 'gym',
-    nameTh: 'โรงยิมเนเซียม (Gym - สนามบาสในร่ม)',
-    nameEn: 'Indoor Basketball Gymnasium',
-    typeEn: 'Indoor Sports Arena & Basketball Court',
+    nameTh: 'โรงยิมเนเซียม',
+    nameEn: 'Gymnasium',
+    typeEn: 'Sports Arena & Basketball Court',
     badge: '🏀',
     badgeColor: '#0284c7',
     width: 18.0,
@@ -107,12 +107,12 @@ const CAMPUS_DATA = [
     color: 0xf8fafc,
     edgeColor: 0x0284c7,
     isGym: true,
-    descEn: 'Air-conditioned indoor gymnasium with a standard 28 × 15m FIBA hardwood basketball court, vaulted acoustic ceiling, high-bay lighting, and daylight clerestory windows.'
+    descEn: 'Sports court accommodates basketball, futsal, and other sports; it features spectator stands and is sometimes used for parking.'
   },
   {
     id: 'auditorium',
-    nameTh: 'หอประชุม (auditorium)',
-    nameEn: 'Auditorium & Performing Arts Hall',
+    nameTh: 'หอประชุม',
+    nameEn: 'Auditorium',
     typeEn: 'Assembly Hall & Event Center',
     badge: '🎭',
     badgeColor: '#7c3aed',
@@ -131,8 +131,8 @@ const CAMPUS_DATA = [
   {
     id: 'flagpole_court',
     nameTh: 'ลานเสาธง & สวนหย่อม (เสาธง)',
-    nameEn: 'Flagpole Courtyard & Garden',
-    typeEn: 'North Open Courtyard & Garden',
+    nameEn: 'Flagpole',
+    typeEn: 'Garden and seating areas all around',
     badge: '🚩',
     badgeColor: '#dc2626',
     width: 30.0,
@@ -144,7 +144,7 @@ const CAMPUS_DATA = [
     y: 0.08,
     color: 0xdcfce7,
     edgeColor: 0x16a34a,
-    descEn: 'North open-air courtyard featuring the national flagpole, landscaped lawn, stepping-stone pathways, and garden seating areas.'
+    descEn: 'This flagpole area is used for morning assemblies and activities, and features an outdoor seating zone.'
   },
   {
     id: 'covered_walkway',
@@ -837,8 +837,8 @@ function createFlagpole(group) {
   const ctx = flagCanvas.getContext('2d');
   const h = flagCanvas.height;
   ctx.fillStyle = '#dc2626'; ctx.fillRect(0, 0, 150, h);
-  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, h * (1/6), 150, h * (4/6));
-  ctx.fillStyle = '#1e3a8a'; ctx.fillRect(0, h * (2/6), 150, h * (2/6));
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, h * (1 / 6), 150, h * (4 / 6));
+  ctx.fillStyle = '#1e3a8a'; ctx.fillRect(0, h * (2 / 6), 150, h * (2 / 6));
 
   const tex = new THREE.CanvasTexture(flagCanvas);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -889,7 +889,7 @@ function createZigzagParkingIsland(group) {
 
     // Flower accents on hedge top
     const flowerMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.8 });
-    for (let fx = -seg.w/2 + 0.6; fx <= seg.w/2 - 0.6; fx += 1.1) {
+    for (let fx = -seg.w / 2 + 0.6; fx <= seg.w / 2 - 0.6; fx += 1.1) {
       const fl = new THREE.Mesh(new THREE.DodecahedronGeometry(0.2, 0), flowerMat);
       fl.position.set(seg.x + fx, 0.85, seg.z);
       islandGroup.add(fl);
@@ -2253,9 +2253,6 @@ function selectBuilding(id, shouldFocusCamera = false) {
 
   document.getElementById('modal-title').textContent = building.nameEn;
   document.getElementById('modal-en-title').textContent = building.typeEn;
-  document.getElementById('modal-dim-size').textContent = `${building.width} × ${building.depth} m`;
-  document.getElementById('modal-dim-height').textContent = `${building.height} m (${building.floors} Floors)`;
-  document.getElementById('modal-dim-pos').textContent = `(${building.x}, ${building.z})`;
   document.getElementById('modal-description').textContent = building.descEn;
 
   modal.classList.add('show');
