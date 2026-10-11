@@ -149,8 +149,8 @@ const CAMPUS_DATA = [
   {
     id: 'covered_walkway',
     nameTh: 'ทางเดินมีหลังคา (Covered Walkway)',
-    nameEn: 'Central Covered Walkway',
-    typeEn: 'Canopy Walkway Between Wings',
+    nameEn: 'Covered Walkway',
+    typeEn: 'Walkway Between Wings',
     badge: '🚶',
     badgeColor: '#0d9488',
     width: 30.0,
@@ -163,13 +163,13 @@ const CAMPUS_DATA = [
     color: 0x38bdf8,
     edgeColor: 0x0284c7,
     isWalkway: true,
-    descEn: 'Modern architectural canopy walkway with slim stainless steel columns and glass skylights, providing sheltered pedestrian crossing between wings.'
+    descEn: 'The covered walkway connecting the buildings and serves as a pick-up and drop-off point.'
   },
   {
     id: 'parking_court',
     nameTh: 'ลานจอดรถ (parking)',
-    nameEn: 'Parking Courtyard & Green Island',
-    typeEn: 'South Courtyard Parking Area',
+    nameEn: 'Parking',
+    typeEn: 'Parking Area',
     badge: '🅿️',
     badgeColor: '#475569',
     width: 30.0,
@@ -181,7 +181,7 @@ const CAMPUS_DATA = [
     y: 0.06,
     color: 0x334155,
     edgeColor: 0x64748b,
-    descEn: 'Designated faculty and visitor parking courtyard with paved asphalt, marked stalls, and a sculptured zig-zag green hedge island.'
+    descEn: 'A moderately sized parking lot'
   }
 ];
 
@@ -2253,6 +2253,9 @@ function selectBuilding(id, shouldFocusCamera = false) {
 
   document.getElementById('modal-title').textContent = building.nameEn;
   document.getElementById('modal-en-title').textContent = building.typeEn;
+  // document.getElementById('modal-dim-size').textContent = `${building.width} × ${building.depth} m`;
+  // document.getElementById('modal-dim-height').textContent = `${building.height} m (${building.floors} Floors)`;
+  // document.getElementById('modal-dim-pos').textContent = `(${building.x}, ${building.z})`;
   document.getElementById('modal-description').textContent = building.descEn;
 
   modal.classList.add('show');
